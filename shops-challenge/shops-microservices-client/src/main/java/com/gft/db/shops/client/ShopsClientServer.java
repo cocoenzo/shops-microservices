@@ -2,8 +2,6 @@ package com.gft.db.shops.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
@@ -13,18 +11,18 @@ import com.gft.db.shops.client.controller.ShopsClientIndexController;
 import com.gft.db.shops.client.service.ShopsClientService;
 
 @SpringBootApplication
-@EnableDiscoveryClient
+// @EnableDiscoveryClient
 @ComponentScan(useDefaultFilters = false, basePackages = { "com.gft.db.shops" })
 public class ShopsClientServer {
 
-    public static final String SERVICE_URL = "http://shops-service/";
+    public static final String SERVICE_URL = "http://localhost:8080/shops/";
 
     public static void main(String[] args) {
 
         SpringApplication.run(ShopsClientServer.class, args);
     }
 
-    @LoadBalanced
+    // @LoadBalanced
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();

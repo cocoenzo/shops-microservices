@@ -2,10 +2,10 @@ package com.gft.db.shops.service;
 
 import java.io.IOException;
 
-import org.springframework.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.gft.db.shops.app.Constants;
 import com.gft.db.shops.data.Shop;
@@ -22,6 +22,26 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
 
+/**
+ * Represents the implementation of the Google Maps API in our application.<br/>
+ * It is developed to retrieved the lat & lng for a specific street and
+ * calculates distance between two LatLng points with the Google Maps API,
+ * instead using the Math function.<br/>
+ * Those processes are developed in an async method with the "await" function
+ * from the Google Maps API. The main issue that we have here, it could be the
+ * resources consumed and time expend to retrieve the distance, however, it was
+ * considered clearer in the process because we do not need to include any extra
+ * formula.<br/>
+ * 
+ * The API_KEY is stored in our Constant class, however, it must be included in
+ * a properties file or as a DAP property (hidden for any developer). For this
+ * task, we have considered it was enough to be stored as a Constant var.
+ * 
+ * @author Ignacio Elorriaga
+ * @version 1.0
+ * @since 1.0
+ * 
+ */
 @Service
 public class GeocodingService {
 
@@ -29,41 +49,12 @@ public class GeocodingService {
 
     private final GeoApiContext geoApi = new GeoApiContext().setApiKey(Constants.GOOGLE_KEY);
 
-    public Shop latLng2Address(final LatLng location) {
-        Shop shopAddress = new Shop();
-
-        try {
-            GeocodingResult[] result = GeocodingApi.reverseGeocode(geoApi, location).await();
-            shopAddress = parseResult(result);
-            System.out.println(shopAddress.toString());
-        } catch (ApiException e) {
-
-            LOG.error("Error with Google Maps", e);
-        } catch (InterruptedException e) {
-
-            LOG.error("Error with Google Maps", e);
-        } catch (IOException e) {
-
-            LOG.error("Error with Google Maps", e);
-        }
-
-        return shopAddress;
-    }
-
     public Shop address2LatLng(final String address) {
         Shop shopAddress = new Shop();
         try {
             final GeocodingResult[] results = GeocodingApi.geocode(geoApi, address).await();
             shopAddress = parseResult(results);
-            System.out.println(shopAddress.toString());
-        } catch (ApiException e) {
-
-            LOG.error("Error with Google Maps", e);
-        } catch (InterruptedException e) {
-
-            LOG.error("Error with Google Maps", e);
-        } catch (IOException e) {
-
+        } catch (ApiException | InterruptedException | IOException e) {
             LOG.error("Error with Google Maps", e);
         }
 

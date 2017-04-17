@@ -1,6 +1,5 @@
 package com.gft.db.shops.service;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +14,33 @@ import com.gft.db.shops.data.ShopsException;
 import com.google.maps.model.Distance;
 import com.google.maps.model.LatLng;
 
+/**
+ * Service layer in the model part. <br/>
+ * Contains all the method for the logic to save/update, read and find shops.<br/>
+ * 
+ * When the user saves any new / update shop, the process will retrieve from the
+ * Street name its coordinates and this process is defined in a sync. process
+ * because it was tested that it takes few seconds, and there is not lag time
+ * for the user to be divided into a async process.
+ * 
+ * @author Ignacio Elorriaga
+ * @version 1.0
+ * @since 1.0
+ * 
+ */
 @Service
 public class ShopsService {
 
-    private ShopsDao repository;
+    private final ShopsDao repository;
 
-
-    private GeocodingService geocodingService;
+    private final GeocodingService geocodingService;
 
     @Autowired
     public ShopsService(final ShopsDao dao, final GeocodingService geoService) {
-    	this.repository=dao;
-    	this.geocodingService=geoService;
+        this.repository = dao;
+        this.geocodingService = geoService;
     }
+
     public Shop readShop(final String name) {
         return repository.readShop(name);
     }
@@ -36,43 +49,46 @@ public class ShopsService {
         return repository.readAll();
     }
 
-    public ResponseData remove(final Shop shop) throws ShopsException{
-    	if(shop == null){
-    		throw new ShopsException("No shop to be removed");
-    	}
+    public ResponseData remove(final Shop shop) throws ShopsException {
+        if (shop == null) {
+            throw new ShopsException("No shop to be removed");
+        }
         return repository.removeShop(shop);
     }
-    private boolean validateShop(final Shop shop){
-    	if(StringUtils.isEmpty(shop.getName())) {
-    		return Boolean.FALSE;
-    	}
-    	return Boolean.TRUE;
-    }
-    public ResponseData save(final Shop shop) throws ShopsException{
-       try{
-    	   if(validateShop(shop)){
-            final Shop readData = geocodingService.address2LatLng(shop.getShopAddress().getStreet());
-            shop.setLatitude(readData.getLatitude());
-            shop.setLongitude(readData.getLongitude());
-            if (shop.getShopAddress().getNumber() == 0) {
-                shop.getShopAddress().setNumber(readData.getShopAddress().getNumber());
-            }
-            if (shop.getShopAddress().getPostCode() == 0) {
-                shop.getShopAddress().setPostCode(readData.getShopAddress().getPostCode());
-            }
 
-            return repository.save(shop);
-    	   } else {
-    		   return new ResponseData(ResponseData.ACTION_ERROR, shop);
-    	   }
-        } catch(Exception e) {
+    private boolean validateShop(final Shop shop) {
+        if (StringUtils.isEmpty(shop.getName())) {
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
+
+    public ResponseData save(final Shop shop) throws ShopsException {
+        try {
+            if (validateShop(shop)) {
+                final Shop readData = geocodingService.address2LatLng(shop.getShopAddress().getStreet());
+                shop.setLatitude(readData.getLatitude());
+                shop.setLongitude(readData.getLongitude());
+                if (shop.getShopAddress().getNumber() == 0) {
+                    shop.getShopAddress().setNumber(readData.getShopAddress().getNumber());
+                }
+                if (shop.getShopAddress().getPostCode() == 0) {
+                    shop.getShopAddress().setPostCode(readData.getShopAddress().getPostCode());
+                }
+
+                return repository.save(shop);
+            } else {
+                return new ResponseData(ResponseData.ACTION_ERROR, shop);
+            }
+        } catch (Exception e) {
             throw new ShopsException(Constants.ERROR_MSG);
         }
     }
 
-    public Set<Shop> findNearestShops(final LatLng latLng) {
-        final Set<Shop> shops = new HashSet<Shop>();
-
+    public Shop findNearestShops(final LatLng latLng) {
+        Shop nearestShop = new Shop();
+        long[] dists = { Long.MAX_VALUE };
+        nearestShop.setDistancesToAnotherPoint(dists);
         for (Shop shop : readAll()) {
 
             Distance[] distances = geocodingService.checkDistances(latLng,
@@ -86,9 +102,11 @@ public class ShopsService {
                 distancesNumbers[i] = distance.inMeters;
             }
             shop.setDistancesToAnotherPoint(distancesNumbers);
-            shops.add(shop);
+            if (shop.getDistancesToAnotherPoint()[0] < nearestShop.getDistancesToAnotherPoint()[0]) {
+                nearestShop = shop;
+            }
         }
 
-        return shops;
+        return nearestShop;
     }
 }

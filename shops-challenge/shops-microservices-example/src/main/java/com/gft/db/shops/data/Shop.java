@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.hateoas.ResourceSupport;
 
-@XmlRootElement(name="shop")
+@XmlRootElement(name = "shop")
 public class Shop extends ResourceSupport implements Serializable, Comparator<Shop> {
 
     private String name;
@@ -16,6 +16,7 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
     private double latitude;
     private ShopAddress shopAddress;
     private long[] distancesToAnotherPoint;
+    private String distanceRedable = "";
 
     public Shop(String name, double longitude, double latitude, ShopAddress shopAddress) {
         super();
@@ -70,6 +71,14 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
         this.distancesToAnotherPoint = distancesToAnotherPoint;
     }
 
+    public String getDistanceRedable() {
+        return distanceRedable;
+    }
+
+    public void setDistanceRedable(String distanceRedable) {
+        this.distanceRedable = distanceRedable;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -107,7 +116,8 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
                 + shopAddress + "]";
     }
 
-    public int compare(final Shop o1,final Shop o2) {
+    @Override
+    public int compare(final Shop o1, final Shop o2) {
         int diffs = 0;
         if (o1 == null || o2 == null) {
             return --diffs;
@@ -118,6 +128,5 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
 
         return diffs;
     }
-
 
 }

@@ -17,6 +17,8 @@ import com.gft.db.shops.client.service.ShopsClientService;
 @Controller
 public class ShopsClientController {
 
+    private static final String URL_PAGE_SHOP = "shop";
+
     protected ShopsClientService service;
 
     protected Logger logger = Logger.getLogger(ShopsClientController.class);
@@ -36,15 +38,9 @@ public class ShopsClientController {
 
         logger.info("shops-service readShop() invoked: " + name);
         Shop shop = service.readShop(name);
-        model.addAttribute("shop", shop);
-        // Greeting greeting = helloWorldService.greeting(name);
+        model.addAttribute(URL_PAGE_SHOP, shop);
 
-        // logger.info("helloWorld-service greeting() found: " +
-        // greeting.getContent());
-
-        // model.addAttribute("greeting", greeting.getContent());
-
-        return "shop";
+        return URL_PAGE_SHOP;
 
     }
 
@@ -54,7 +50,7 @@ public class ShopsClientController {
         Set<Shop> shops = service.findNearest(Double.valueOf(latitude), Double.valueOf(longitude));
         model.addAttribute("shops", shops);
 
-        return "shop";
+        return URL_PAGE_SHOP;
     }
 
     @RequestMapping("/save")
@@ -66,8 +62,8 @@ public class ShopsClientController {
         shop.setShopAddress(new ShopAddress(street, number, postalCode));
         ResponseData response = service.save(shop);
         model.addAttribute("response", response);
-        model.addAttribute("shop", response.getShop());
+        model.addAttribute(URL_PAGE_SHOP, response.getShop());
         model.addAttribute("shops", new HashSet<Shop>());
-        return "shop";
+        return URL_PAGE_SHOP;
     }
 }

@@ -12,14 +12,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.gft.db.BeanRepository;
 import com.gft.db.shops.dao.ShopsDao;
 import com.gft.db.shops.data.ResponseData;
 import com.gft.db.shops.data.Shop;
 import com.gft.db.shops.data.ShopsException;
 import com.gft.db.shops.service.GeocodingService;
 import com.gft.db.shops.service.ShopsService;
-
+import com.gft.db.utils.BeanRepository;
 import com.google.maps.model.Distance;
 import com.google.maps.model.LatLng;
 

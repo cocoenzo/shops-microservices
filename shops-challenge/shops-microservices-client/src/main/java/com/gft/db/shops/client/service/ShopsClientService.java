@@ -6,10 +6,8 @@ import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.gft.db.shops.client.data.ResponseData;
 import com.gft.db.shops.client.data.Shop;
@@ -18,7 +16,7 @@ import com.gft.db.shops.client.data.Shop;
 public class ShopsClientService {
 
     @Autowired
-    @LoadBalanced
+    // @LoadBalanced
     protected RestTemplate restTemplate;
 
     protected String serviceUrl;
@@ -37,24 +35,24 @@ public class ShopsClientService {
 
     public Shop readShop(final String name) {
 
-        logger.info("greeting() invoked: for " + name);
+        logger.info("reading a shop with name=" + name);
 
-        final ModelAndView shops = restTemplate.getForObject(serviceUrl + "read/{name}", ModelAndView.class, name);
-        final Shop shop = (Shop)shops.getModel().get("shop");
+        final Shop shop = restTemplate.getForObject(serviceUrl + "{name}", Shop.class, name);
+
         return shop;
 
     }
 
     public ResponseData save(final Shop shop) {
-        final String params = "name=" + shop.getName() + "&street=" + shop.getShopAddress().getStreet()
-                + "&postalCode=" + shop.getShopAddress().getPostCode() + "&number=" + shop.getShopAddress().getNumber();
-        final ResponseData response = restTemplate.getForObject(serviceUrl + "save/?" + params, ResponseData.class);
+        final String params = "name=" + shop.getName() + "&street=" + shop.getShopAddress().getStreet() + "&postCode="
+                + shop.getShopAddress().getPostCode() + "&number=" + shop.getShopAddress().getNumber();
+        final ResponseData response = restTemplate.getForObject(serviceUrl + "?" + params, ResponseData.class);
         return response;
 
     }
 
     public Set<Shop> findNearest(final double lat, final double lng) {
-        final Set<Shop> shops = restTemplate.getForObject(serviceUrl + "find/?lat=" + lat + "&lng=" + lng, Set.class);
+        final Set<Shop> shops = restTemplate.getForObject(serviceUrl + "?lat=" + lat + "&lng=" + lng, Set.class);
         return shops;
     }
 }
