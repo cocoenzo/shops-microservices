@@ -1,0 +1,119 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+       #map {
+        height: 400px;
+        width: 400px;
+       }
+    </style>
+  
+	<script th:inline="javascript">
+ 
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+    </script>
+    <script th:inline="javascript" async="async" defer="defer"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5Ftc17hr3TUVZRvPpd0lqoh9H2RM2lBk&amp;callback=initMap">
+    </script>
+
+</head>
+<body>
+
+	<div id="map"></div>
+    
+	<h1>Microservices Demo - Shop-Client Server</h1>
+	<h3>Overview</h3>
+	<ul>
+		<li>Demo defines a simple web-application for accessing Shops microservice.</li>
+	</ul>
+
+	<h3>The Demo</h3>
+		<h4>Read a Shop by Name</h4>
+	 <form  th:action="@{/read/}" method="get">
+	 	<label>Shop Name:</label><input type="text" value="" name="name" id="name"/><br/>
+	 	<input type="submit" value="Search Shop"/>
+	 </form>
+	 
+	 	<h4>Save a Shop</h4>
+	 <form th:action="@{/save}" name="saveShop" id="saveShop" method="get">
+	 	<table>
+			<tbody>
+				<tr>
+					<td><label>Name:</label></td>
+					<td><input type="text" value="" name="name" id="name"/></td>
+				</tr>
+				<tr>
+					<td><label>street:</label></td>
+					<td><input type="text" value="" name="street" id="street"/></td>
+				</tr>
+				<tr>
+					<td>number:</td>
+					<td><input type="text" value="" name="number" id="number"/></td>
+				</tr>
+				<tr>
+					<td><label>Postal Code:</label></td>
+					<td><input type="text" value="" name="postalCode" id="postalCode"/></td>
+				</tr>
+				<tr>	
+					<td><input type="submit" value="Save Shop"/></td>
+				</tr>
+			</tbody>
+		</table>
+	 </form>
+	
+	<h4>Find Shops by Lat and Lng</h4> 
+	 <form th:action="@{/find/}" method="get">
+	 	<label for="latitude">latitude:</label><input type="text" value="" name="latitude" id="latitude"/><br/>
+	 	<label for="longitude">longitude:</label><input type="text" value="" name="longitude" id="longitude"/><br/>
+	 	<input type="submit" value="Search Shops"/>
+	 </form>
+	 
+	<h3>Spring Boot URLs</h3>
+	<p>For those interested, Spring Boot provides RESTful URLs for
+		interrogating your application (they return JSON format data):</p>
+
+	<ul>
+		<li><a th:href="@{/beans}">The beans</a></li>
+		<li><a th:href="@{/env}">The environment</a></li>
+		<li><a th:href="@{/dump}">Thread dump</a></li>
+		<li><a th:href="@{/health}">Application health</a></li>
+		<li><a th:href="@{/info}">Application information</a></li>
+		<li><a th:href="@{/metrics}">Application metrics</a></li>
+		<li><a th:href="@{/trace}">Request call trace</a></li>
+	</ul>
+
+
+</body>
+</html>
