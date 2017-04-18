@@ -1,0 +1,284 @@
+{
+	"variables": [],
+	"info": {
+		"name": "shops-microservices_collection_actions",
+		"_postman_id": "77ffc1ac-c401-4ecd-3a9b-25425ee6679d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/shops/",
+			"request": {
+				"url": "localhost:8080/shops/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "GFT London",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "85 King William St, London EC4N 7BJ, London",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "11123",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "85",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Test JSON"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/shops/",
+			"request": {
+				"url": "localhost:8080/shops/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Bishop Square",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "10 Bishops Square, London E1 6EG, Reino Unido",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "11123",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "10",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/shops/",
+			"request": {
+				"url": "localhost:8080/shops/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Scotland National Museum",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "5963",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/shops/",
+			"request": {
+				"url": "localhost:8080/shops/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Scotland National Museum",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "5963",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/shops/?lat=55.863034&lng=-4.280220",
+			"request": {
+				"url": "localhost:8080/shops/?lat=55.863034&lng=-4.280220",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Scotland National Museum",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "5963",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/shops/",
+			"request": {
+				"url": "localhost:8080/shops/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "GFT London",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "75 King William St, London EC4N 7BJ, London",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "11123",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "85",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/shops/",
+			"request": {
+				"url": "localhost:8080/shops/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Scotland National Museum",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "5963",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -123,6 +123,8 @@ public class ShopsController {
                 log.info("Saving the shop: " + shop);
                 ResponseData response = service.save(shop);
                 message = convertToReadableMsg(response);
+                response.setResult(message);
+                return response;
             } else {
                 message = Constants.ACTION_INVALID_PARAMS;
             }
