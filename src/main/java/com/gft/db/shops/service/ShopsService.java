@@ -1,6 +1,7 @@
 package com.gft.db.shops.service;
 
 import java.util.Set;
+import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,12 @@ import com.gft.db.shops.dao.ShopsDao;
 import com.gft.db.shops.data.ResponseData;
 import com.gft.db.shops.data.Shop;
 import com.gft.db.shops.data.ShopsException;
-import com.google.maps.model.Distance;
 import com.google.maps.model.LatLng;
 
 /**
  * Service layer in the model part. <br/>
- * Contains all the method for the logic to save/update, read and find shops.<br/>
+ * Contains all the method for the logic to save/update, read and find
+ * shops.<br/>
  * 
  * When the user saves any new / update shop, the process will retrieve from the
  * Street name its coordinates and this process is defined in a sync. process
@@ -63,20 +64,34 @@ public class ShopsService {
         return Boolean.TRUE;
     }
 
+    public Shop includeCoordinates(final Shop shop) {
+        final Shop saved = repository.readShop(shop.getName());
+        if (saved.compare(saved, shop) == 0) {
+            saved.setLatitude(shop.getLatitude());
+            saved.setLongitude(shop.getLongitude());
+            repository.save(shop).getShop();
+        }
+        return saved;
+
+    }
+
+    /**
+     * Stores the new or updated element and then, it reads its lat and lng
+     * coordinates in an async. mode with the {@linkplain Future}.
+     * 
+     * @param shop
+     *            to be stored.
+     * @return the Response with the message of the operation and the object
+     *         stored.
+     * @throws ShopsException
+     *             in case any exception.
+     */
     public ResponseData save(final Shop shop) throws ShopsException {
         try {
             if (validateShop(shop)) {
-                final Shop readData = geocodingService.address2LatLng(shop.getShopAddress().getStreet());
-                shop.setLatitude(readData.getLatitude());
-                shop.setLongitude(readData.getLongitude());
-                if (shop.getShopAddress().getNumber() == 0) {
-                    shop.getShopAddress().setNumber(readData.getShopAddress().getNumber());
-                }
-                if (shop.getShopAddress().getPostCode() == 0) {
-                    shop.getShopAddress().setPostCode(readData.getShopAddress().getPostCode());
-                }
-
-                return repository.save(shop);
+                ResponseData response = repository.save(shop);
+                geocodingService.obtainLatittudeLongitude(shop).thenAccept(this::includeCoordinates);
+                return response;
             } else {
                 return new ResponseData(ResponseData.ACTION_ERROR, shop);
             }
@@ -85,24 +100,25 @@ public class ShopsService {
         }
     }
 
+    /**
+     * Determines which is the nearest shop from the specified lat and lng.<br/>
+     * It is calculated with a Math function.
+     * 
+     * @param latLng
+     *            as a init point.
+     * @return the result shop.
+     */
     public Shop findNearestShops(final LatLng latLng) {
         Shop nearestShop = new Shop();
-        long[] dists = { Long.MAX_VALUE };
+        double dists = Double.MAX_VALUE;
         nearestShop.setDistancesToAnotherPoint(dists);
         for (Shop shop : readAll()) {
 
-            Distance[] distances = geocodingService.checkDistances(latLng,
+            double distanceKms = GeocodingService.checkDistances(latLng,
                     new LatLng(shop.getLatitude(), shop.getLongitude()));
-            if (distances.length == 1 && distances[0] == null) {
-                break;
-            }
-            long[] distancesNumbers = new long[distances.length];
-            for (int i = 0; i < distances.length; i++) {
-                Distance distance = distances[i];
-                distancesNumbers[i] = distance.inMeters;
-            }
-            shop.setDistancesToAnotherPoint(distancesNumbers);
-            if (shop.getDistancesToAnotherPoint()[0] < nearestShop.getDistancesToAnotherPoint()[0]) {
+
+            shop.setDistancesToAnotherPoint(distanceKms);
+            if (shop.getDistancesToAnotherPoint() < nearestShop.getDistancesToAnotherPoint()) {
                 nearestShop = shop;
             }
         }

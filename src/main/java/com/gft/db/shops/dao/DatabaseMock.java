@@ -56,11 +56,9 @@ public class DatabaseMock {
 
     public Shop readItem(final String shopName) {
         final Optional<Shop> maybe = Optional.ofNullable(items.get(shopName));
-        final Shop shop;
+        Shop shop = new Shop();
         if (maybe.isPresent()) {
             shop = maybe.get();
-        } else {
-            shop = new Shop();
         }
         return shop;
     }

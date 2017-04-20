@@ -15,7 +15,7 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
     private double longitude;
     private double latitude;
     private ShopAddress shopAddress;
-    private long[] distancesToAnotherPoint;
+    private double distancesToAnotherPoint;
     private String distanceRedable = "";
 
     public Shop(String name, double longitude, double latitude, ShopAddress shopAddress) {
@@ -63,11 +63,11 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
         this.shopAddress = shopAddress;
     }
 
-    public long[] getDistancesToAnotherPoint() {
+    public double getDistancesToAnotherPoint() {
         return distancesToAnotherPoint;
     }
 
-    public void setDistancesToAnotherPoint(long[] distancesToAnotherPoint) {
+    public void setDistancesToAnotherPoint(double distancesToAnotherPoint) {
         this.distancesToAnotherPoint = distancesToAnotherPoint;
     }
 
@@ -123,6 +123,19 @@ public class Shop extends ResourceSupport implements Serializable, Comparator<Sh
             return --diffs;
         }
         if (o1.getName() != null && !o1.getName().equalsIgnoreCase(o2.getName())) {
+            diffs++;
+        }
+
+        if (o1.getShopAddress() != null
+                && !o1.getShopAddress().getStreet().equalsIgnoreCase(o2.getShopAddress().getStreet())) {
+            diffs++;
+        }
+        if (o1.getShopAddress() != null && o2.getShopAddress() != null
+                && o1.getShopAddress().getNumber() != o2.getShopAddress().getNumber()) {
+            diffs++;
+        }
+        if (o1.getShopAddress() != null && o2.getShopAddress() != null
+                && o1.getShopAddress().getPostCode() != o2.getShopAddress().getPostCode()) {
             diffs++;
         }
 

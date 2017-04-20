@@ -1,4 +1,5 @@
 package com.gft.db.utils;
+
 import com.gft.db.shops.data.Shop;
 import com.gft.db.shops.data.ShopAddress;
 

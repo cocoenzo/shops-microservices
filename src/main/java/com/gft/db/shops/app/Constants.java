@@ -4,13 +4,16 @@ package com.gft.db.shops.app;
  * Some constants used along the application.<br/>
  * 
  * Messages should be created in the "shopstext.properties" to be read as labels
- * for multi-language, however it is enough for this purpose. Google Key, must
- * be in the properties, however, it is enough to be here for this purpose.
+ * for multi-language, however it is enough for this purpose.
  * 
  * @author Ignacio Elorriaga
  * 
  */
 public interface Constants {
+    /** Radius in Kilometers. */
+    double RADIUS = 6372.8;
+
+    String DEFAULT_COUNTRY = "GB";
 
     String PAGE_SHOP = "shop";
     String PAGE_INDEX = "index";
@@ -24,6 +27,5 @@ public interface Constants {
     String ACTION_CREATED_MSG = "Shop created successfully";
     String ERROR_MSG = "There was an error in the process";
 
-    String GOOGLE_KEY = "AIzaSyC5Ftc17hr3TUVZRvPpd0lqoh9H2RM2lBk";
     String ACTION_INVALID_PARAMS = "Invalid input parameters. Street and Name are mandatories.";
 }
