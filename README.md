@@ -30,8 +30,14 @@ gradlew.bat bootRun
 
 ##### Postman Testing
 As it was indicated in the application description, it was developed the application with Postman chrome application, in order to check the outgoing data from the server. Because of the output of the application is JSON media type.
-There are a collection of few actions checked with the application inside the file shops-microservices.postman_collection.json
-
+There are a collection of few actions checked with the application inside the file `shops-microservices.postman_collection.json` and for each action some tests checking the response from the server, for instance:
+```sh
+var jsonData = JSON.parse(responseBody);
+tests["Status code is 200"] = responseCode.code === 200;
+tests["Distance"] = jsonData.distancesToAnotherPoint=163.56529618725796;
+tests["Shop name"] = jsonData.name=== "Test 3";
+tests["Shop Address"] = jsonData.shopAddress.street==="1 Chambers St, Edinburgh EH1 1JF, United Kingdom";
+```
 
 ### Reasons of each selection
 

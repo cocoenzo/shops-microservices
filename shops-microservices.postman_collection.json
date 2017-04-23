@@ -1,16 +1,32 @@
 {
 	"variables": [],
 	"info": {
-		"name": "shops-microservices_collection_actions",
-		"_postman_id": "77ffc1ac-c401-4ecd-3a9b-25425ee6679d",
+		"name": "shops_collection",
+		"_postman_id": "ec4edfcc-4598-a612-01b5-8e073a017c3a",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "localhost:8080/shops/",
+			"name": "1.-Create Bishops shop",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var jsonObject = xml2Json(responseBody);",
+							"tests[\"New Shop\"] = jsonData.shop.name === \"Test 1\";",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"10 Bishops Square, London E1 6EG, London\";",
+							"tests[\"Shop Result\"] = jsonData.result === \"Shop created successfully\";"
+						]
+					}
+				}
+			],
 			"request": {
-				"url": "localhost:8080/shops/",
+				"url": "http://localhost:8080/shops/",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -18,58 +34,7 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "GFT London",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "85 King William St, London EC4N 7BJ, London",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "postCode",
-							"value": "11123",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "number",
-							"value": "85",
-							"type": "text",
-							"enabled": true
-						}
-					]
-				},
-				"description": "Test JSON"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8080/shops/",
-			"request": {
-				"url": "localhost:8080/shops/",
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Bishop Square",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "10 Bishops Square, London E1 6EG, Reino Unido",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "postCode",
-							"value": "11123",
+							"value": "Test 1",
 							"type": "text",
 							"enabled": true
 						},
@@ -78,17 +43,45 @@
 							"value": "10",
 							"type": "text",
 							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "1600",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "10 Bishops Square, London E1 6EG, London",
+							"type": "text",
+							"enabled": true
 						}
 					]
 				},
-				"description": ""
+				"description": "Create a new Shop for bioshiop"
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:8080/shops/",
+			"name": "2.-Create King William shop",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Shop Name\"] = jsonData.shop.name === \"Test 2\";",
+							"tests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"85 King William St, London EC4N 7BJ, London\";",
+							"tests[\"Shop Result\"] = jsonData.result === \"Shop updated successfully\";",
+							""
+						]
+					}
+				}
+			],
 			"request": {
-				"url": "localhost:8080/shops/",
+				"url": "http://localhost:8080/shops/",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -96,136 +89,7 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Scotland National Museum",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "postCode",
-							"value": "5963",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "number",
-							"value": "1",
-							"type": "text",
-							"enabled": true
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8080/shops/",
-			"request": {
-				"url": "localhost:8080/shops/",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Scotland National Museum",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "postCode",
-							"value": "5963",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "number",
-							"value": "1",
-							"type": "text",
-							"enabled": true
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8080/shops/?lat=55.863034&lng=-4.280220",
-			"request": {
-				"url": "localhost:8080/shops/?lat=55.863034&lng=-4.280220",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Scotland National Museum",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "postCode",
-							"value": "5963",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "number",
-							"value": "1",
-							"type": "text",
-							"enabled": true
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:8080/shops/",
-			"request": {
-				"url": "localhost:8080/shops/",
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "GFT London",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "75 King William St, London EC4N 7BJ, London",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "postCode",
-							"value": "11123",
+							"value": "Test 2",
 							"type": "text",
 							"enabled": true
 						},
@@ -234,17 +98,43 @@
 							"value": "85",
 							"type": "text",
 							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "1600",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "85 King William St, London EC4N 7BJ, London",
+							"type": "text",
+							"enabled": true
 						}
 					]
 				},
-				"description": ""
+				"description": "Shop created for Kings Street"
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:8080/shops/",
+			"name": "3.-Read All Shops",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var jsonObject = xml2Json(responseBody);",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Count number\"] = jsonData.length > 1"
+						]
+					}
+				}
+			],
 			"request": {
-				"url": "localhost:8080/shops/",
+				"url": "http://localhost:8080/shops/",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -252,19 +142,62 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Scotland National Museum",
+							"value": "Test 1",
 							"type": "text",
 							"enabled": true
 						},
 						{
-							"key": "street",
-							"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+							"key": "number",
+							"value": "10",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "postCode",
-							"value": "5963",
+							"value": "1600",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "10 Bishops Square, London E1 6EG, London",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "List shops"
+			},
+			"response": []
+		},
+		{
+			"name": "4.- Create Edinburgh shop",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Shop Name\"] = jsonData.shop.name === \"Test 3\";",
+							"tests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"1 Chambers St, Edinburgh EH1 1JF, United Kingdom\";",
+							"tests[\"Shop Result\"] = jsonData.result === \"Shop created successfully\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/shops/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Test 3",
 							"type": "text",
 							"enabled": true
 						},
@@ -273,10 +206,131 @@
 							"value": "1",
 							"type": "text",
 							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "1600",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "1 Chambers St, Edinburgh EH1 1JF, United Kingdom",
+							"type": "text",
+							"enabled": true
 						}
 					]
 				},
-				"description": ""
+				"description": "Save Shp in Edinburgh"
+			},
+			"response": []
+		},
+		{
+			"name": "5.-Find nearest from Edinburgh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Distance\"] = jsonData.distancesToAnotherPoint=163.56529618725796;",
+							"tests[\"Shop name\"] = jsonData.name=== \"Test 3\";",
+							"tests[\"Shop Address\"] = jsonData.shopAddress.street===\"1 Chambers St, Edinburgh EH1 1JF, United Kingdom\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/shops/?lat=55.01&lng=-1.189",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Test 1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "10",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "1600",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "10 Bishops Square, London E1 6EG, London",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Find the nearest"
+			},
+			"response": []
+		},
+		{
+			"name": "6.-Update King William shop",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Shop Name\"] = jsonData.shop.name === \"Test 2\";",
+							"tests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"75 King William St, London EC4N 7BJ, London\";",
+							"tests[\"Shop Result\"] = jsonData.result === \"Shop updated successfully\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/shops/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Test 2",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "number",
+							"value": "75",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "1600",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "75 King William St, London EC4N 7BJ, London",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Update a Shop"
 			},
 			"response": []
 		}
