@@ -1,0 +1,1664 @@
+{
+	"id": "fffd0d1e-bc32-bb50-27be-6a7766f8b2eb",
+	"name": "shops_collection",
+	"allTests": [],
+	"timestamp": 1493213945305,
+	"collection_id": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "0",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+		"name": "shops_collection",
+		"description": "",
+		"order": [
+			"f0a0b079-8657-795e-9002-90ed50c530bd",
+			"b64441bd-cdff-05c4-d38e-535d6922b266",
+			"c994a116-1362-482f-2287-2fb5311097c7",
+			"6ee47141-e5fc-38cd-f2cd-b6343bdfa6b7",
+			"533895a6-a34d-ee5d-6799-a8092f2869c1",
+			"681f358f-286d-1e1d-4674-de418f2871bc",
+			"7ebc0723-34dd-0a97-5986-52f8afaca6a0",
+			"9921e522-ceff-2ebb-0018-9697d42d7215",
+			"d39fe03a-206f-123c-1018-d94adc023818",
+			"6b819822-1b8e-971c-e56f-7032da401782",
+			"565b89e5-3c04-9649-fd83-7baa2b0546be",
+			"dd36f5f0-95a6-dd5c-8055-82dbca7c6829",
+			"ccd96444-a443-1277-cabd-e9292a20cec1"
+		],
+		"folders": [],
+		"requests": [
+			{
+				"id": "533895a6-a34d-ee5d-6799-a8092f2869c1",
+				"headers": "",
+				"url": "http://localhost:8080/shops/?lat=55.01&lng=-1.189",
+				"preRequestScript": "",
+				"pathVariables": {},
+				"method": "GET",
+				"data": [
+					{
+						"key": "name",
+						"value": "Test 1",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "10",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "1600",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "10 Bishops Square, London E1 6EG, London",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Distance\"] = jsonData.distancesToAnotherPoint=163.56529618725796;\ntests[\"Shop name\"] = jsonData.name=== \"Edinburgh shop\";\ntests[\"Shop Address\"] = jsonData.shopAddress.street===\"1 Chambers St, Edinburgh EH1 1JF, United Kingdom\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493209484095,
+				"name": "5.-Find nearest from Edinburgh",
+				"description": "Find the nearest",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "565b89e5-3c04-9649-fd83-7baa2b0546be",
+				"headers": "",
+				"url": "http://localhost:8080/shops/GFT London",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "DELETE",
+				"data": null,
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.result === \"Shop removed successfully\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200361773,
+				"name": "11-Delete GFT London",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "681f358f-286d-1e1d-4674-de418f2871bc",
+				"headers": "",
+				"url": "http://localhost:8080/shops/",
+				"preRequestScript": "",
+				"pathVariables": {},
+				"method": "POST",
+				"data": [
+					{
+						"key": "name",
+						"value": "GFT London",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "75",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "1600",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "75 King William St, London EC4N 7BJ, London",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.shop.name === \"GFT London\";\ntests[\"Previous shop Street\"] = jsonData.shop.shopAddress.street === \"85 King William St, London EC4N 7BJ, London\";\ntests[\"Shop Result\"] = jsonData.result === \"Shop updated successfully\";\n",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200207479,
+				"name": "6.-Update King William shop",
+				"description": "Update a Shop",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "6b819822-1b8e-971c-e56f-7032da401782",
+				"headers": "",
+				"url": "localhost:8080/shops/?lat=51.5238753&lng=-0.0914868",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "GET",
+				"data": [
+					{
+						"key": "name",
+						"value": "Scotland National Museum",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "5963",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "1",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Distance\"] = jsonData.distancesToAnotherPoint=1.1574211280920301;\ntests[\"Shop name\"] = jsonData.name=== \"DB London\";\ntests[\"Shop Address\"] = jsonData.shopAddress.street===\"10 Bishops Square, London E1 6EG, London\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200363892,
+				"name": "10.-Find nearest From DB London",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "6ee47141-e5fc-38cd-f2cd-b6343bdfa6b7",
+				"headers": "",
+				"url": "http://localhost:8080/shops/",
+				"preRequestScript": "",
+				"pathVariables": {},
+				"method": "POST",
+				"data": [
+					{
+						"key": "name",
+						"value": "Edinburgh shop",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "1",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "1600",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "1 Chambers St, Edinburgh EH1 1JF, United Kingdom",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.shop.name === \"Edinburgh shop\";\ntests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"1 Chambers St, Edinburgh EH1 1JF, United Kingdom\";\ntests[\"Shop Result\"] = jsonData.result === \"Shop created successfully\";\n",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493209471119,
+				"name": "4.- Create Edinburgh shop",
+				"description": "Save Shp in Edinburgh",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "7ebc0723-34dd-0a97-5986-52f8afaca6a0",
+				"headers": "",
+				"url": "http://localhost:8080/shops/InvalidName",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "DELETE",
+				"data": null,
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.result === \"Shop not found\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200311252,
+				"name": "7.-Delete Invalid Shop",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "9921e522-ceff-2ebb-0018-9697d42d7215",
+				"headers": "",
+				"url": "localhost:8080/shops/GFT London",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "GET",
+				"data": [
+					{
+						"key": "name",
+						"value": "Scotland National Museum",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "5963",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "1",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.shop.name === \"GFT London\";\ntests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"75 King William St, London EC4N 7BJ, London\";\ntests[\"Shop Result\"] = jsonData.result === \"Shop read successfully\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493213489055,
+				"name": "8.-Read GFT London shop",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "b64441bd-cdff-05c4-d38e-535d6922b266",
+				"headers": "",
+				"url": "http://localhost:8080/shops/",
+				"preRequestScript": "",
+				"pathVariables": {},
+				"method": "POST",
+				"data": [
+					{
+						"key": "name",
+						"value": "GFT London",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "85",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "1600",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "85 King William St, London EC4N 7BJ, London",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.shop.name === \"GFT London\";\ntests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"85 King William St, London EC4N 7BJ, London\";\ntests[\"Shop Result\"] = jsonData.result === \"Shop created successfully\";\n",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200192218,
+				"name": "2.-Create GFT London",
+				"description": "Shop created for Kings Street",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "c994a116-1362-482f-2287-2fb5311097c7",
+				"headers": "",
+				"url": "http://localhost:8080/shops/",
+				"preRequestScript": "",
+				"pathVariables": {},
+				"method": "GET",
+				"data": [
+					{
+						"key": "name",
+						"value": "Test 1",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "10",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "1600",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "10 Bishops Square, London E1 6EG, London",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"tests": "var jsonData = JSON.parse(responseBody);\nvar jsonObject = xml2Json(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Count number\"] = jsonData.length == 2",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200196425,
+				"name": "3.-Read All Shops",
+				"description": "List shops",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "ccd96444-a443-1277-cabd-e9292a20cec1",
+				"headers": "",
+				"url": "http://localhost:8080/shops/DB London",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "DELETE",
+				"data": null,
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.result === \"Shop removed successfully\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493213359450,
+				"name": "13.-Delete DB Lodon",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "d39fe03a-206f-123c-1018-d94adc023818",
+				"headers": "",
+				"url": "localhost:8080/shops/InvalidName",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "GET",
+				"data": [
+					{
+						"key": "name",
+						"value": "Scotland National Museum",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "1 Chambers St, Edinburgh EH1 1JF, Reino Unido",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "5963",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "1",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.shop.name === null;\ntests[\"Shop Result\"] = jsonData.result === \"Shop not found\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200319625,
+				"name": "9.-Read InvalidName shop",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "dd36f5f0-95a6-dd5c-8055-82dbca7c6829",
+				"headers": "",
+				"url": "http://localhost:8080/shops/Edinburgh shop",
+				"preRequestScript": null,
+				"pathVariables": {},
+				"method": "DELETE",
+				"data": null,
+				"dataMode": "params",
+				"version": 2,
+				"tests": "var jsonData = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Name\"] = jsonData.result === \"Shop removed successfully\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493213338378,
+				"name": "12.-Delete Edinburgh Shop",
+				"description": "",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			},
+			{
+				"id": "f0a0b079-8657-795e-9002-90ed50c530bd",
+				"headers": "",
+				"url": "http://localhost:8080/shops/",
+				"preRequestScript": "",
+				"pathVariables": {},
+				"method": "POST",
+				"data": [
+					{
+						"key": "name",
+						"value": "DB London",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "number",
+						"value": "10",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "postCode",
+						"value": "1600",
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "street",
+						"value": "10 Bishops Square, London E1 6EG, London",
+						"type": "text",
+						"enabled": true
+					}
+				],
+				"dataMode": "params",
+				"tests": "var jsonData = JSON.parse(responseBody);\nvar jsonObject = xml2Json(responseBody);\ntests[\"New Shop\"] = jsonData.shop.name === \"DB London\";\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Shop Street\"] = jsonData.shop.shopAddress.street === \"10 Bishops Square, London E1 6EG, London\";\ntests[\"Shop Result\"] = jsonData.result === \"Shop created successfully\";",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1493200182862,
+				"name": "1.-Create DB London",
+				"description": "Create a new Shop for bioshiop",
+				"collectionId": "e1f1e0c8-95bc-54aa-4cde-00fe0bc3e0db",
+				"responses": []
+			}
+		],
+		"timestamp": 0,
+		"synced": true,
+		"syncedFilename": "",
+		"remote_id": 0,
+		"remoteLink": "",
+		"remoteLinkUpdatedAt": null,
+		"public": false,
+		"owner": 0,
+		"subscribed": false,
+		"createdAt": 1493196843443,
+		"updatedAt": 1493213310924,
+		"write": true,
+		"isDeleted": false,
+		"published": false,
+		"favorite": false,
+		"permissions": {},
+		"syncedPermissions": {},
+		"sharedWithTeam": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"id": "f0a0b079-8657-795e-9002-90ed50c530bd",
+			"name": "1.-Create DB London",
+			"url": "http://localhost:8080/shops/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"New Shop": true,
+				"Status code is 200": true,
+				"Shop Street": true,
+				"Shop Result": true
+			},
+			"testPassFailCounts": {
+				"New Shop": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				36
+			],
+			"allTests": [
+				{
+					"New Shop": true,
+					"Status code is 200": true,
+					"Shop Street": true,
+					"Shop Result": true
+				}
+			],
+			"time": 36,
+			"totalRequestTime": 36,
+			"iterationResults": {}
+		},
+		{
+			"id": "b64441bd-cdff-05c4-d38e-535d6922b266",
+			"name": "2.-Create GFT London",
+			"url": "http://localhost:8080/shops/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Street": true,
+				"Shop Result": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true,
+					"Shop Street": true,
+					"Shop Result": true
+				}
+			],
+			"time": 20,
+			"totalRequestTime": 20,
+			"iterationResults": {}
+		},
+		{
+			"id": "c994a116-1362-482f-2287-2fb5311097c7",
+			"name": "3.-Read All Shops",
+			"url": "http://localhost:8080/shops/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Count number": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Count number": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Count number": true
+				}
+			],
+			"time": 9,
+			"totalRequestTime": 9,
+			"iterationResults": {}
+		},
+		{
+			"id": "6ee47141-e5fc-38cd-f2cd-b6343bdfa6b7",
+			"name": "4.- Create Edinburgh shop",
+			"url": "http://localhost:8080/shops/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Street": true,
+				"Shop Result": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true,
+					"Shop Street": true,
+					"Shop Result": true
+				}
+			],
+			"time": 17,
+			"totalRequestTime": 17,
+			"iterationResults": {}
+		},
+		{
+			"id": "533895a6-a34d-ee5d-6799-a8092f2869c1",
+			"name": "5.-Find nearest from Edinburgh",
+			"url": "http://localhost:8080/shops/?lat=55.01&lng=-1.189",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Distance": 163.56529618725796,
+				"Shop name": true,
+				"Shop Address": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Distance": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Address": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4770
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Distance": 163.56529618725796,
+					"Shop name": true,
+					"Shop Address": true
+				}
+			],
+			"time": 4770,
+			"totalRequestTime": 4770,
+			"iterationResults": {}
+		},
+		{
+			"id": "681f358f-286d-1e1d-4674-de418f2871bc",
+			"name": "6.-Update King William shop",
+			"url": "http://localhost:8080/shops/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Previous shop Street": true,
+				"Shop Result": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Previous shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				30
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true,
+					"Previous shop Street": true,
+					"Shop Result": true
+				}
+			],
+			"time": 30,
+			"totalRequestTime": 30,
+			"iterationResults": {}
+		},
+		{
+			"id": "7ebc0723-34dd-0a97-5986-52f8afaca6a0",
+			"name": "7.-Delete Invalid Shop",
+			"url": "http://localhost:8080/shops/InvalidName",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true
+				}
+			],
+			"time": 16,
+			"totalRequestTime": 16,
+			"iterationResults": {}
+		},
+		{
+			"id": "9921e522-ceff-2ebb-0018-9697d42d7215",
+			"name": "8.-Read GFT London shop",
+			"url": "localhost:8080/shops/GFT London",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Street": true,
+				"Shop Result": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true,
+					"Shop Street": true,
+					"Shop Result": true
+				}
+			],
+			"time": 16,
+			"totalRequestTime": 16,
+			"iterationResults": {}
+		},
+		{
+			"id": "d39fe03a-206f-123c-1018-d94adc023818",
+			"name": "9.-Read InvalidName shop",
+			"url": "localhost:8080/shops/InvalidName",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Result": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true,
+					"Shop Result": true
+				}
+			],
+			"time": 12,
+			"totalRequestTime": 12,
+			"iterationResults": {}
+		},
+		{
+			"id": "6b819822-1b8e-971c-e56f-7032da401782",
+			"name": "10.-Find nearest From DB London",
+			"url": "localhost:8080/shops/?lat=51.5238753&lng=-0.0914868",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Distance": 1.1574211280920301,
+				"Shop name": true,
+				"Shop Address": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Distance": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Address": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Distance": 1.1574211280920301,
+					"Shop name": true,
+					"Shop Address": true
+				}
+			],
+			"time": 10,
+			"totalRequestTime": 10,
+			"iterationResults": {}
+		},
+		{
+			"id": "565b89e5-3c04-9649-fd83-7baa2b0546be",
+			"name": "11-Delete GFT London",
+			"url": "http://localhost:8080/shops/GFT London",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true
+				}
+			],
+			"time": 26,
+			"totalRequestTime": 26,
+			"iterationResults": {}
+		},
+		{
+			"id": "dd36f5f0-95a6-dd5c-8055-82dbca7c6829",
+			"name": "12.-Delete Edinburgh Shop",
+			"url": "http://localhost:8080/shops/Edinburgh shop",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				37
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true
+				}
+			],
+			"time": 37,
+			"totalRequestTime": 37,
+			"iterationResults": {}
+		},
+		{
+			"id": "ccd96444-a443-1277-cabd-e9292a20cec1",
+			"name": "13.-Delete DB Lodon",
+			"url": "http://localhost:8080/shops/DB London",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Shop Name": true
+				}
+			],
+			"time": 17,
+			"totalRequestTime": 17,
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 41,
+	"totalFail": 0,
+	"totalTime": 5016,
+	"lifecycle": "done",
+	"willStop": false,
+	"requests": [
+		{
+			"name": "1.-Create DB London",
+			"id": "f0a0b079-8657-795e-9002-90ed50c530bd",
+			"url": "http://localhost:8080/shops/",
+			"time": 36,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"New Shop": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"New Shop",
+				"Status code is 200",
+				"Shop Street",
+				"Shop Result"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"New Shop": true,
+				"Status code is 200": true,
+				"Shop Street": true,
+				"Shop Result": true
+			}
+		},
+		{
+			"name": "2.-Create GFT London",
+			"id": "b64441bd-cdff-05c4-d38e-535d6922b266",
+			"url": "http://localhost:8080/shops/",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name",
+				"Shop Street",
+				"Shop Result"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Street": true,
+				"Shop Result": true
+			}
+		},
+		{
+			"name": "3.-Read All Shops",
+			"id": "c994a116-1362-482f-2287-2fb5311097c7",
+			"url": "http://localhost:8080/shops/",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Count number": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Count number"
+			],
+			"gridData": [
+				[
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Count number": true
+			}
+		},
+		{
+			"name": "4.- Create Edinburgh shop",
+			"id": "6ee47141-e5fc-38cd-f2cd-b6343bdfa6b7",
+			"url": "http://localhost:8080/shops/",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name",
+				"Shop Street",
+				"Shop Result"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Street": true,
+				"Shop Result": true
+			}
+		},
+		{
+			"name": "5.-Find nearest from Edinburgh",
+			"id": "533895a6-a34d-ee5d-6799-a8092f2869c1",
+			"url": "http://localhost:8080/shops/?lat=55.01&lng=-1.189",
+			"time": 4770,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Distance": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Address": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Distance",
+				"Shop name",
+				"Shop Address"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Distance": true,
+				"Shop name": true,
+				"Shop Address": true
+			}
+		},
+		{
+			"name": "6.-Update King William shop",
+			"id": "681f358f-286d-1e1d-4674-de418f2871bc",
+			"url": "http://localhost:8080/shops/",
+			"time": 30,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Previous shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name",
+				"Previous shop Street",
+				"Shop Result"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Previous shop Street": true,
+				"Shop Result": true
+			}
+		},
+		{
+			"name": "7.-Delete Invalid Shop",
+			"id": "7ebc0723-34dd-0a97-5986-52f8afaca6a0",
+			"url": "http://localhost:8080/shops/InvalidName",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name"
+			],
+			"gridData": [
+				[
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			}
+		},
+		{
+			"name": "8.-Read GFT London shop",
+			"id": "9921e522-ceff-2ebb-0018-9697d42d7215",
+			"url": "localhost:8080/shops/GFT London",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Street": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name",
+				"Shop Street",
+				"Shop Result"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Street": true,
+				"Shop Result": true
+			}
+		},
+		{
+			"name": "9.-Read InvalidName shop",
+			"id": "d39fe03a-206f-123c-1018-d94adc023818",
+			"url": "localhost:8080/shops/InvalidName",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Result": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name",
+				"Shop Result"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true,
+				"Shop Result": true
+			}
+		},
+		{
+			"name": "10.-Find nearest From DB London",
+			"id": "6b819822-1b8e-971c-e56f-7032da401782",
+			"url": "localhost:8080/shops/?lat=51.5238753&lng=-0.0914868",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Distance": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Address": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Distance",
+				"Shop name",
+				"Shop Address"
+			],
+			"gridData": [
+				[
+					true,
+					true,
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Distance": true,
+				"Shop name": true,
+				"Shop Address": true
+			}
+		},
+		{
+			"name": "11-Delete GFT London",
+			"id": "565b89e5-3c04-9649-fd83-7baa2b0546be",
+			"url": "http://localhost:8080/shops/GFT London",
+			"time": 26,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name"
+			],
+			"gridData": [
+				[
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			}
+		},
+		{
+			"name": "12.-Delete Edinburgh Shop",
+			"id": "dd36f5f0-95a6-dd5c-8055-82dbca7c6829",
+			"url": "http://localhost:8080/shops/Edinburgh shop",
+			"time": 37,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name"
+			],
+			"gridData": [
+				[
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			}
+		},
+		{
+			"name": "13.-Delete DB Lodon",
+			"id": "ccd96444-a443-1277-cabd-e9292a20cec1",
+			"url": "http://localhost:8080/shops/DB London",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"gridTitles": [
+				"Status code is 200",
+				"Shop Name"
+			],
+			"gridData": [
+				[
+					true,
+					true
+				]
+			],
+			"tests": {
+				"Status code is 200": true,
+				"Shop Name": true
+			}
+		}
+	],
+	"synced": false
+}

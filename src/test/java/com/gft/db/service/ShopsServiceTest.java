@@ -50,7 +50,7 @@ public class ShopsServiceTest {
 
         when(dao.readAll()).thenReturn(new HashSet<Shop>(Arrays.asList(shop)));
         when(dao.readShop(anyString())).thenReturn(shop);
-        when(dao.removeShop(any(Shop.class))).thenReturn(new ResponseData(ResponseData.ACTION_REMOVE, shop));
+        when(dao.removeShop(anyString())).thenReturn(new ResponseData(ResponseData.ACTION_REMOVE, shop));
         when(dao.save(any(Shop.class))).thenReturn(new ResponseData(ResponseData.ACTION_NEW, shop));
         when(geocodingService.obtainLatittudeLongitude(any(Shop.class))).thenReturn(completeFuture);
 
@@ -76,10 +76,10 @@ public class ShopsServiceTest {
 
     @Test
     public void testRemove() throws ShopsException {
-        final ResponseData response = service.remove(shop);
+        final ResponseData response = service.remove(shop.getName());
 
         Assert.assertEquals(ResponseData.ACTION_REMOVE, response.getResult());
-        verify(dao, times(1)).removeShop(any(Shop.class));
+        verify(dao, times(1)).removeShop(anyString());
     }
 
     @Test

@@ -26,6 +26,7 @@ public interface Constants {
     String ACTION_UPDATED_MSG = "Shop updated successfully";
     String ACTION_CREATED_MSG = "Shop created successfully";
     String ERROR_MSG = "There was an error in the process";
+    String ACTION_NOT_FOUND = "Shop not found";
 
     String ACTION_INVALID_PARAMS = "Invalid input parameters. Street and Name are mandatories.";
 }

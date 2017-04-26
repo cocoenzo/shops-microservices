@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,7 +40,7 @@ import com.google.maps.model.LatLng;
  * <li>Read the nearest shop by one Lat and Lng, with URI [GET]
  * http://host/shops/?lat=xxx&lng=xxx form</li>
  * <li>Save a shop, with URI [POST] http://host/shops/ form</li>
- * 
+ * <li>Remove a shop, with URI [DELETE] http://host/shops/{name}</li>
  * </ul>
  * For the list it is used the new forEach in the iterator method to provide the
  * link.<br/>
@@ -57,7 +56,7 @@ import com.google.maps.model.LatLng;
 @RequestMapping(value = "/shops", produces = "application/json")
 public class ShopsController {
 
-    private final Logger log = Logger.getLogger(ShopsController.class);
+    private static final Logger LOG = Logger.getLogger(ShopsController.class);
 
     private final ShopsService service;
 
@@ -67,41 +66,47 @@ public class ShopsController {
     }
 
     private void addSelfLink(final Shop resource) {
-        final Shop shop = methodOn(ShopsController.class).readShop(resource.getName()).getShop();
-        final Link link = linkTo(shop).withSelfRel();
-        resource.add(link);
+        if (resource.getLinks().size() == 0) {
+            resource.add(linkTo(methodOn(ShopsController.class).readShop(resource.getName())).withRel("self"));
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{name}")
-    public @ResponseBody
-    ResponseData readShop(@PathVariable("name") final String name) {
-        log.info("Returning the shop" + name);
+    public @ResponseBody ResponseData readShop(@PathVariable("name") final String name) {
+        LOG.info("Returning the shop" + name);
+        String message = "";
+        Shop shop = new Shop();
         if (StringUtils.isEmpty(name)) {
-            log.error("No selected input parameter name");
+            LOG.error("No selected input parameter name");
+            message = ResponseData.ACTION_ERROR;
         } else {
-            final Shop shop = service.readShop(name);
-
-            addSelfLink(shop);
-            return new ResponseData(Constants.ACTION_READ_MSG, shop);
+            shop = service.readShop(name);
+            message = ResponseData.ACTION_NOT_FOUND;
+            if (!StringUtils.isEmpty(shop.getName())) {
+                addSelfLink(shop);
+                message = Constants.ACTION_READ_MSG;
+            }
         }
-        return new ResponseData(ResponseData.ACTION_ERROR, new Shop());
+        return new ResponseData(convertToReadableMsg(message), shop);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/", params = { "lat", "lng" })
     public Shop findNearestShops(@RequestParam(name = "lat") final double lat,
             @RequestParam(name = "lng") final double lng) {
-        log.info("Looking for the nearest shop from lat=" + lat + ", lng=" + lng);
+        LOG.info("Looking for the nearest shop from lat=" + lat + ", lng=" + lng);
         final LatLng latLngObject = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
         final Shop shop = service.findNearestShops(latLngObject);
-        addSelfLink(shop);
-        log.info("Shop found: " + shop);
+        if (!StringUtils.isEmpty(shop.getName())) {
+            addSelfLink(shop);
+        }
+        LOG.info("Shop found: " + shop);
         return shop;
 
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public Set<Shop> readAll() {
-        log.info("Returning all shops");
+        LOG.info("Returning all shops");
         Set<Shop> shops = service.readAll();
         shops.forEach(new Consumer<Shop>() {
             @Override
@@ -112,27 +117,50 @@ public class ShopsController {
         return shops;
     }
 
+    /**
+     * Stores a shop in the database.<br/>
+     * It checks firstly, that the mandatory params are valid and then the
+     * service is executed.
+     * 
+     * @param shopCommand
+     *            with the values from the input data.
+     * @return the result of the operation.
+     */
     @RequestMapping(method = RequestMethod.POST, path = "/")
-    public @ResponseBody
-    ResponseData save(final ShopCommand shopCommand) {
+    public @ResponseBody ResponseData save(final ShopCommand shopCommand) {
         String message = "";
         Shop shop = new Shop();
         try {
             shop = shopCommand.convertToShop();
             if (validateShop(shop)) {
-                log.info("Saving the shop: " + shop);
+                LOG.info("Saving the shop: " + shop);
                 ResponseData response = service.save(shop);
-                message = convertToReadableMsg(response);
-                response.setResult(message);
+                response.setResult(convertToReadableMsg(response.getResult()));
+                addSelfLink(shop);
                 return response;
             } else {
                 message = Constants.ACTION_INVALID_PARAMS;
             }
         } catch (ShopsException e) {
-            log.error("There was an error while saving: " + shop, e);
+            LOG.error("There was an error while saving: " + shop, e);
             message = Constants.ERROR_MSG;
         }
         return new ResponseData(message, shop);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{name}")
+    public @ResponseBody ResponseData remove(@PathVariable final String name) {
+        LOG.info("Removing the shop: " + name);
+        ResponseData response = new ResponseData();
+        try {
+            response = service.remove(name);
+        } catch (ShopsException e) {
+            LOG.error("Error removing the shop=" + name, e);
+            response = new ResponseData(ResponseData.ACTION_ERROR, new Shop());
+        }
+        response.setResult(convertToReadableMsg(response.getResult()));
+        return response;
+
     }
 
     /**
@@ -166,9 +194,9 @@ public class ShopsController {
      * @param response
      * @return
      */
-    private String convertToReadableMsg(ResponseData response) {
-        String message = "";
-        switch (response.getResult()) {
+    private String convertToReadableMsg(String messageFromServer) {
+        String message = messageFromServer;
+        switch (messageFromServer) {
         case ResponseData.ACTION_ERROR:
             message = Constants.ERROR_MSG;
             break;
@@ -181,6 +209,10 @@ public class ShopsController {
         case ResponseData.ACTION_REMOVE:
             message = Constants.ACTION_REMOVE_MSG;
             break;
+        case ResponseData.ACTION_NOT_FOUND:
+            message = Constants.ACTION_NOT_FOUND;
+            break;
+
         }
         return message;
     }

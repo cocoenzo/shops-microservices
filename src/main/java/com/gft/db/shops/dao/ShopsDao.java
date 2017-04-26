@@ -36,7 +36,7 @@ public class ShopsDao {
     }
 
     public Shop readShop(final String name) {
-        return database.readItem(name);
+        return database.readItem(name).orElse(new Shop());
 
     }
 
@@ -53,13 +53,14 @@ public class ShopsDao {
         }
     }
 
-    public ResponseData removeShop(final Shop shop) {
-        final Optional<Shop> maybeShop = database.removeItem(shop.getName());
+    public ResponseData removeShop(final String name) {
+        final Optional<Shop> maybeShop = database.removeItem(name);
         String message = "";
+        final Shop shop = new Shop();
+        shop.setName(name);
+        message = ResponseData.ACTION_NOT_FOUND;
         if (maybeShop.isPresent()) {
             message = ResponseData.ACTION_REMOVE;
-        } else {
-            message = ResponseData.ACTION_ERROR;
         }
         return new ResponseData(message, shop);
     }

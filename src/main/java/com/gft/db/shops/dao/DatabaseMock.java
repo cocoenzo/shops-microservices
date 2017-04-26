@@ -54,13 +54,8 @@ public class DatabaseMock {
         return new HashSet<Shop>(items.values());
     }
 
-    public Shop readItem(final String shopName) {
-        final Optional<Shop> maybe = Optional.ofNullable(items.get(shopName));
-        Shop shop = new Shop();
-        if (maybe.isPresent()) {
-            shop = maybe.get();
-        }
-        return shop;
+    public Optional<Shop> readItem(final String shopName) {
+        return Optional.ofNullable(items.get(shopName));
     }
 
 }

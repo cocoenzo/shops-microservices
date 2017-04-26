@@ -52,8 +52,8 @@ public class ShopsControllerIntegrationTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        predefined.addAll(Arrays.asList(shop, new Shop("JUnit Test 2", 22.7d, -0.86d, new ShopAddress("London", 25,
-                11101))));
+        predefined.addAll(
+                Arrays.asList(shop, new Shop("JUnit Test 2", 22.7d, -0.86d, new ShopAddress("London", 25, 11101))));
         for (Shop shop : predefined) {
             dao.save(shop);
         }
@@ -67,9 +67,6 @@ public class ShopsControllerIntegrationTest {
 
     @Test
     public void testRead() {
-
-        // {"result":"Shop read successfully","shop":{"name":"JUnit Test
-        // 1","longitude":23.0,"latitude":-0.89,"shopAddress":{"number":25,"postCode":11101,"street":"London"},"distancesToAnotherPoint":null,"links":[{"rel":"self","href":"http://localhost/shops"}]}}
 
         try {
             mockMvc.perform(get(URI_READ, shop.getName())).andExpect(status().isOk())

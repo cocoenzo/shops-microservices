@@ -6,6 +6,8 @@ public class ResponseData {
     public static final String ACTION_UPDATE = "update";
     public static final String ACTION_REMOVE = "remove";
     public static final String ACTION_ERROR = "error";
+    public static final String ACTION_NOT_FOUND = "notFound";
+
     private String result;
     private Shop shop;
 

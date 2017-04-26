@@ -67,8 +67,8 @@ public class ShopsControllerTest {
         Mockito.when(service.readAll()).thenReturn(defaultValues);
         Mockito.when(service.readShop(Mockito.eq(defaultShop.getName()))).thenReturn(defaultShop);
         try {
-            Mockito.when(service.save(Mockito.any(Shop.class))).thenReturn(
-                    new ResponseData(ResponseData.ACTION_NEW, defaultShop));
+            Mockito.when(service.save(Mockito.any(Shop.class)))
+                    .thenReturn(new ResponseData(ResponseData.ACTION_NEW, defaultShop));
         } catch (ShopsException e) {
 
         }
@@ -91,7 +91,7 @@ public class ShopsControllerTest {
         Mockito.when(service.readShop(Mockito.eq(name))).thenReturn(new Shop());
         final ResponseData response = controller.readShop(name);
         final Shop readShop = response.getShop();
-        Assert.assertEquals(Constants.ACTION_READ_MSG, response.getResult());
+        Assert.assertEquals(Constants.ACTION_NOT_FOUND, response.getResult());
         Assert.assertNotNull(readShop);
         Assert.assertEquals(new Shop(), readShop);
         Mockito.verify(service, Mockito.times(1)).readShop(Mockito.eq(name));
@@ -99,11 +99,11 @@ public class ShopsControllerTest {
 
     @Test
     public void testSave() {
-        final Shop insertShop = new Shop("1" + DEFAULT_NAME, DEFAULT_LONG, DEFAULT_LAT, new ShopAddress(DEFAULT_STREET,
-                DEFAULT_NUMBER, DEFAULT_POST_CODE + 1));
+        final Shop insertShop = new Shop("1" + DEFAULT_NAME, DEFAULT_LONG, DEFAULT_LAT,
+                new ShopAddress(DEFAULT_STREET, DEFAULT_NUMBER, DEFAULT_POST_CODE + 1));
         try {
-            Mockito.when(service.save(Mockito.any(Shop.class))).thenReturn(
-                    new ResponseData(ResponseData.ACTION_NEW, insertShop));
+            Mockito.when(service.save(Mockito.any(Shop.class)))
+                    .thenReturn(new ResponseData(ResponseData.ACTION_NEW, insertShop));
         } catch (ShopsException e) {
 
         }
@@ -151,5 +151,48 @@ public class ShopsControllerTest {
 
         Assert.assertNotNull(shopsFound);
 
+    }
+
+    @Test
+    public void testRemove() {
+        try {
+            Mockito.when(service.remove(Mockito.anyString()))
+                    .thenReturn(new ResponseData(ResponseData.ACTION_REMOVE, defaultShop));
+
+            ResponseData response = controller.remove(defaultShop.getName());
+
+            Assert.assertEquals(Constants.ACTION_REMOVE_MSG, response.getResult());
+            Assert.assertEquals(defaultShop.getName(), response.getShop().getName());
+            Mockito.verify(service, Mockito.times(1)).remove(Mockito.anyString());
+        } catch (ShopsException e) {
+
+        }
+
+    }
+
+    @Test
+    public void testRemoveInvalid() {
+        try {
+            Mockito.when(service.remove(Mockito.anyString()))
+                    .thenReturn(new ResponseData(ResponseData.ACTION_NOT_FOUND, defaultShop));
+
+            ResponseData response = controller.remove(defaultShop.getName());
+
+            Assert.assertEquals(Constants.ACTION_NOT_FOUND, response.getResult());
+            Assert.assertEquals(defaultShop.getName(), response.getShop().getName());
+            Mockito.verify(service, Mockito.times(1)).remove(Mockito.anyString());
+        } catch (ShopsException e) {
+
+        }
+    }
+
+    @Test
+    public void testFindNearest() {
+        Mockito.when(service.findNearestShops(Mockito.any(LatLng.class))).thenReturn(defaultShop);
+
+        Shop shop = controller.findNearestShops(23d, 23d);
+        Assert.assertEquals(defaultShop, shop);
+        Assert.assertEquals(defaultShop.getLinks().get(0).getHref(), shop.getLinks().get(0).getHref());
+        Mockito.verify(service, Mockito.times(1)).findNearestShops(Mockito.any(LatLng.class));
     }
 }

@@ -2,6 +2,8 @@ package com.gft.db.shops.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,9 +43,14 @@ public class GeocodingService {
 
     private final GeoApiContext geoApi = new GeoApiContext();
 
+    @PostConstruct
+    private void init() {
+        geoApi.setApiKey(apiKey);
+    }
+
     public CompletableFuture<Shop> obtainLatittudeLongitude(final Shop shop) {
         final CompletableFuture<Shop> completableFutureResult = new CompletableFuture<Shop>();
-        geoApi.setApiKey(apiKey);
+
         GeocodingApiRequest requestCoordinates = GeocodingApi.newRequest(geoApi)
                 .address(shop.getShopAddress().getStreet());
         requestCoordinates.setCallback(new PendingResult.Callback<GeocodingResult[]>() {

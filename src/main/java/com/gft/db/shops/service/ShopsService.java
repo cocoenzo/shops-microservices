@@ -50,11 +50,11 @@ public class ShopsService {
         return repository.readAll();
     }
 
-    public ResponseData remove(final Shop shop) throws ShopsException {
-        if (shop == null) {
+    public ResponseData remove(final String shopName) throws ShopsException {
+        if (StringUtils.isEmpty(shopName)) {
             throw new ShopsException("No shop to be removed");
         }
-        return repository.removeShop(shop);
+        return repository.removeShop(shopName);
     }
 
     private boolean validateShop(final Shop shop) {
@@ -76,8 +76,8 @@ public class ShopsService {
     }
 
     /**
-     * Stores the new or updated element and then, it reads its lat and lng
-     * coordinates in an async. mode with the {@linkplain Future}.
+     * Stores the new or updated element and then, it reads its latitude and
+     * longitude coordinates in an async. mode with the {@linkplain Future}.
      * 
      * @param shop
      *            to be stored.
@@ -101,7 +101,8 @@ public class ShopsService {
     }
 
     /**
-     * Determines which is the nearest shop from the specified lat and lng.<br/>
+     * Determines which is the nearest shop from the specified latitude and
+     * longitude.<br/>
      * It is calculated with a Math function.
      * 
      * @param latLng
