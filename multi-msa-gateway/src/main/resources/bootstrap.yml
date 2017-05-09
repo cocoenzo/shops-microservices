@@ -1,0 +1,16 @@
+zuul:
+  routes:
+    greetings:
+      path: /people/**
+      serviceId: people
+      stripPrefix: false
+
+# Discovery Server Access
+eureka:
+  client:
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+ 
+server:
+  port: 8081   # HTTP (Tomcat) port

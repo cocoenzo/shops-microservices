@@ -1,0 +1,13 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: shops 
+server:
+  port: 2222
+  
+zuulserver:
+  ribbon:
+    listOfServers: localhost:8080  
